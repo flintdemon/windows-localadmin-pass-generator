@@ -1,0 +1,23 @@
+stages: 
+    - deploy
+
+execute_job:
+    stage: deploy
+    tags:
+        - ansible
+    script:
+        - 'echo $ANSIBLE_VAULT_PASSWORD > .vault_pass.txt'
+        - 'ansible-playbook change_password.yml --vault-password-file .vault_pass.txt'
+        - 'rm .vault_pass.txt'
+
+    only:
+        refs:
+            - master
+    allow_failure: true
+
+    artifacts:
+        paths:
+            - ./generated
+
+    when: manual
+
