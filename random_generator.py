@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 DOCUMENTATION='''
 ---
 module: random_generator
@@ -24,12 +22,12 @@ EXAMPLES = '''
 '''
 
 import string
-import random 
+import secrets 
 from ansible.module_utils.basic import AnsibleModule
 
 
 def random_generator(size, chars=string.ascii_letters + string.digits):
-    return ''.join(random.choice(chars) for _ in range(size))
+    return ''.join(secrets.choice(chars) for _ in range(size))
 
 module = AnsibleModule(
     argument_spec = dict(
